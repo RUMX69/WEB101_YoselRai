@@ -1,36 +1,94 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Practical 1: TikTok
 
-## Getting Started
+## Overview
+The purpose of this practical is to build a basic replica of TikTok using Next.js, React Hook Form, and TailwindCSS. The recreated application includes a working sidebar, a video feed layout, separate profile and upload pages, and fully functional login and signup forms.
 
-First, run the development server:
 
+## Instructions Followed
+
+### Part 1: Getting Started
+
+#### Project Initialization
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npx create-next-app@latest
+```
+Configuration choices:
+- TypeScript: No (using JSX)
+- ESLint: Yes
+- Tailwind CSS: Yes
+- src/ directory: Yes
+- App Router: Yes
+- Default import alias: No
+
+#### Project Structure Created
+```
+src/
+├── app/
+│   ├── profile/
+│   │   └── page.jsx
+│   ├── upload/
+│   │   └── page.jsx
+│   ├── following/
+│   │   └── page.js
+│   ├── explore/
+│   │   └── page.js
+│   ├── live/
+│   │   └── page.js
+│   ├── login/
+│   │   └── page.jsx
+│   ├── signup/
+│   │   └── page.jsx
+│   └── layout.js
+├── components/
+│   ├── layout/
+│   │   └── MainLayout.jsx
+│   └── ui/
+│       ├── VideoFeed.js
+│       └── VideoCard.jsx
+└── lib/
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Part 2: Creating the Web Layout
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+#### 1. Sidebar Navigation Implementation
+Created a fixed sidebar with navigation links using React Icons:
+- For You (Home)
+- Following
+- Explore
+- Suggested Accounts
+- LIVE
+- Login button
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+![alt text](<../images/Screenshot 2026-03-16 235511.png>)
 
-## Learn More
+#### 2. Video Feed Components
+Implemented:
+- `VideoCard.jsx`: Reusable component for displaying individual videos with interaction buttons (like, comment, share)
+- `VideoFeed.js`: Container component that maps through dummy data to display multiple videos
 
-To learn more about Next.js, take a look at the following resources:
+![alt text](<../images/Screenshot 2026-03-16 235741.png>)
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+#### 3. Additional Pages Created
+- Following page
+- Explore page with trending hashtags
+- LIVE page with stream listings
+- Upload page with form fields
+- Profile page with user information
 
-## Deploy on Vercel
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+#### 4. Authentication Forms
+Installed and implemented React Hook Form for validation:
+- Login page with email/password validation
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+![alt text](<../images/Screenshot 2026-03-16 235822.png>)
+
+
+- Signup page with:
+  - Username validation (min 3 characters, alphanumeric+underscores)
+  - Email validation (pattern matching)
+  - Password validation (min 8 characters, complexity requirements)
+  - Confirm password validation
+  - Terms agreement checkbox
+
+  ![alt text](<../images/Screenshot 2026-03-16 235916.png>)
