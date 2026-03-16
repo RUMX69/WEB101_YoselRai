@@ -1,85 +1,67 @@
-Concepts Applied
-1. Next.js App Router
+## Concepts Applied
 
-File-based routing: Built pages by structuring files within the app directory (profile/page.jsx, upload/page.jsx, etc.)
-Layout system: Set up a root layout along with nested layouts following the App Router pattern
-Client vs Server Components: Applied the 'use client' directive wherever components needed interactivity
+### 1. Next.js App Router
+- **File-based routing**: Pages were set up by arranging files inside the `app` directory (profile/page.jsx, upload/page.jsx, etc.)
+- **Layout system**: A root layout and several nested layouts were established following the App Router structure
+- **Client vs Server Components**: The 'use client' directive was applied to components that required user interaction
 
-2. React Components Architecture
+### 2. React Components Architecture
+- **Component Composition**: Reusable components such as `VideoCard` were developed to receive and display props
+- **Component Organization**: Components were divided into dedicated folders based on their purpose (layout/, ui/)
+- **State Management**: The useState hook was applied to manage dynamic UI behavior (such as toggling buttons)
 
-Component Composition: Developed reusable components such as VideoCard that take in props
-Component Organization: Grouped components into clearly defined folders (layout/, ui/)
-State Management: Leveraged the useState hook to handle interactive UI elements (e.g., button toggling)
+### 3. Tailwind CSS Styling
+- A utility-first workflow was used to speed up the interface building process
+- Flexbox and grid were used to achieve a fully responsive design
+- The overall styling was customized to reflect a TikTok-style appearance
 
-3. Tailwind CSS Styling
+### 4. Form Handling with React Hook Form
+- **Form registration**: The `register` function was used to link each input field to the form state
+- **Validation rules**: Required fields, pattern matching, and minLength restrictions were all configured
+- **Error handling**: Validation messages were rendered directly beneath their corresponding input fields
+- **Form submission**: Default browser behavior was suppressed and loading states were managed throughout
 
-Utility-first methodology for building UIs quickly
-Responsive layouts using flexbox and grid
-Custom styling tailored to a TikTok-inspired design
+### 5. React Icons Integration
+- Font Awesome icons were brought in using the react-icons package
+- Icon buttons were made interactive to support various user actions
 
-4. Form Handling with React Hook Form
+### What I Learned
 
-Form registration: Connected inputs to form state using the register function
-Validation rules: Added required fields, pattern checks, and minLength constraints
-Error handling: Showed validation messages beneath each input field
-Form submission: Managed loading states and blocked default browser behavior
+### Key Learning Outcomes
 
-5. React Icons Integration
+1. **Next.js App Router Benefits**
+   - The App Router introduces a much cleaner and more logical method for structuring routes
+   - Layouts that persist through navigation help reduce unnecessary re-renders and boost performance
+   - Distinguishing between client and server components is a fundamental concept to grasp
 
-Integrated Font Awesome icons through the react-icons library
-Created clickable icon buttons for various user interactions
+2. **Form Validation Importance**
+   - Thorough input validation ensures that only properly formatted data gets submitted
+   - Providing feedback in real time makes forms easier and less frustrating to complete
+   - Matching password fields requires building a dedicated custom validation function
 
+3. **Component Reusability**
+   - Designing flexible components like VideoCard cuts down on repetitive code significantly
+   - Components that rely on props can be reused across multiple parts of the application
+   - Temporary placeholder data lets you verify the UI looks correct before hooking up a real API
 
-What I Learned
-Key Learning Outcomes
+## Challenges
 
-Next.js App Router Benefits
+### 1. Buttons Appearing Double
+- **Issue**: While rendering the video feed, action buttons such as like and share were showing up twice on each card. The UI appeared duplicated and clicking one button would trigger both instances.
+- **Solution**: After tracing through the code, I found that the `VideoCard` component was being rendered twice inside the parent — once through a map function and once hardcoded as a test. Removing the duplicate resolved the problem immediately.
 
-The App Router offers a cleaner and more structured approach to managing routes
-Persistent layout components across navigation leads to better performance
-Knowing when to use client vs server components is an essential skill
+### 2. Page Not Refreshing After Navigation
+- **Issue**: Clicking the sidebar links to navigate between pages would update the URL correctly in the browser, but the page content itself remained stuck on the previous view.
+- **Solution**: I realized I had been using a standard HTML `<a>` tag rather than Next.js's built-in `<Link>` component. Swapping all anchor tags for `<Link>` from `next/link` restored proper navigation behavior.
 
+### 3. Tailwind Classes Not Applying
+- **Issue**: Several utility classes such as `rounded-full` and `text-pink-500` were not taking effect on components despite being written correctly in the code.
+- **Solution**: On inspecting `tailwind.config.js`, I noticed the content paths were not configured to scan through my component files. Updating them to include `./src/**/*.{js,jsx}` allowed Tailwind to detect and apply all classes correctly.
 
-Form Validation Importance
+### 4. useState Not Updating the UI
+- **Issue**: Clicking the follow button was supposed to toggle the label between "Follow" and "Following", but the text remained unchanged even though the console showed no errors.
+- **Solution**: I had placed the state variable declaration outside the component function, which disconnected it from React's rendering cycle. Moving the `useState` call inside the component allowed the UI to re-render properly on state change.
 
-Validating inputs properly ensures only clean data gets submitted
-Instant feedback during form filling enhances the overall user experience
-Confirming passwords requires writing custom validation logic
-
-
-Component Reusability
-
-Generic components like VideoCard reduce the need to rewrite code
-Props-driven components are adaptable and easy to reuse
-Using placeholder data arrays allows UI testing before connecting a real API
-
-Challenges
-
-Buttons Appearing Double
-
-Issue: When rendering the video feed, action buttons such as the like and share buttons were appearing twice on each card. The UI looked duplicated and clicking one button triggered both.
-Solution: I traced the issue and found that the VideoCard component was being rendered twice inside the parent component — once inside a map function and once hardcoded below it as a test. Removing the duplicate render fixed the issue immediately.
-
-
-Page Not Refreshing After Navigation
-
-Issue: After navigating between pages using the sidebar links, the page content would not update. It appeared stuck on the previous page even though the URL changed correctly in the browser.
-Solution: I discovered I had used a regular <a> HTML tag instead of Next.js's <Link> component. Replacing all anchor tags with <Link> from next/link resolved the navigation issue.
-
-
-Tailwind Classes Not Applying
-
-Issue: Several Tailwind utility classes such as rounded-full and text-pink-500 were not being applied to components even though they were written correctly.
-Solution: I checked the tailwind.config.js file and noticed the content paths were not set up to scan my component files. After updating the paths to include ./src/**/*.{js,jsx}, all classes started working as expected.
-
-
-useState Not Updating the UI
-
-Issue: After clicking the follow button, the button text was supposed to switch from "Follow" to "Following" but the label stayed unchanged even though no errors appeared in the console.
-Solution: I had mistakenly declared the state variable outside the component function, which meant it was not tied to React's rendering cycle. Moving the useState declaration inside the component fixed the re-render behavior.
-
-
-Layout Shifting on Mobile
-
-Issue: On smaller screen sizes, the sidebar was overlapping the main content area, pushing video cards out of view and breaking the overall layout.
-Solution: I had forgotten to add responsive prefixes to the layout classes. Adding hidden md:flex to the sidebar and adjusting the main content area with w-full md:ml-64 corrected the layout across all screen sizes.
+### 5. Layout Shifting on Mobile
+- **Issue**: On smaller screen sizes, the sidebar was overlapping the main content area and pushing video cards off screen, causing the overall layout to break.
+- **Solution**: I had overlooked adding responsive prefixes to the layout classes. Applying `hidden md:flex` to the sidebar and setting the main content to `w-full md:ml-64` brought the layout back into alignment across all screen sizes.
