@@ -1,5 +1,7 @@
 // Configuration and Constants
-const WEATHER_API_KEY = ''; // Replace with your API key
+require('dotenv').config();
+
+const WEATHER_API_KEY = process.env.WEATHER_API_KEY;
 const WEATHER_API_URL = 'https://api.openweathermap.org/data/2.5/weather';
 const PLACEHOLDER_API_URL = 'https://jsonplaceholder.typicode.com/posts';
 
